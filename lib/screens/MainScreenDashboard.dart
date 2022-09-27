@@ -156,7 +156,7 @@ class _MainScreenDashboard extends State<MainScreenDashboard> {
                                               onPressed: () {
                                                 setState(() {
                                                   addItems(expName, expAmount,
-                                                      expDatePicker);
+                                                      _expDatePickerController.text);
                                                   Navigator.pop(context);
                                                 });
                                               },

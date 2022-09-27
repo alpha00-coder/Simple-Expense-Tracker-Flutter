@@ -16,4 +16,9 @@ class Utils {
     MainPageItems(Icons.expand, "Other"),
     MainPageItems(Icons.domain, "Salary"),
   ];
+
+  static String getYearDate(String date) {
+    List<String> dateSplit = date.split("-");
+    return dateSplit[2];
+  }
 }

@@ -43,7 +43,7 @@ class DbExecuter {
     return result;
   }
 
-  Future<List<ExpenseModel>> retrieveProducts() async {
+  Future<List<ExpenseModel>> retrieveExpenses() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult = await db.query(expenses);
     return queryResult.map((e) => ExpenseModel.fromMap(e)).toList();

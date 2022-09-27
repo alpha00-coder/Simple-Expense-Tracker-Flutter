@@ -23,8 +23,8 @@ class _ViewProducts extends State<ViewExpenses> {
       expenseFrequency = "",
       expenseAmount = "";
 
-  Future<List<ExpenseModel>> retrieveProducts() {
-    return _dbExecutor.retrieveProducts();
+  Future<List<ExpenseModel>> retrieveExpenses() {
+    return _dbExecutor.retrieveExpenses();
   }
 
   List<ExpenseModel>? listItems = [];
@@ -32,7 +32,7 @@ class _ViewProducts extends State<ViewExpenses> {
 
   @override
   void initState() {
-    productsList = _dbExecutor.retrieveProducts();
+    productsList = _dbExecutor.retrieveExpenses();
     super.initState();
   }
 
@@ -41,7 +41,7 @@ class _ViewProducts extends State<ViewExpenses> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: FutureBuilder<List<ExpenseModel>>(
-          future: retrieveProducts(),
+          future: retrieveExpenses(),
           builder: (context, snapshot) {
             listItems = snapshot.data;
             if (listItems == null) {

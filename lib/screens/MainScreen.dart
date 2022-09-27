@@ -4,6 +4,7 @@ import 'package:untitled/screens/MainScreenDashboard.dart';
 import 'package:untitled/screens/ViewExpenses.dart';
 
 import '../models/LoginCred.dart';
+import 'ExpenseCharts.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key, required this.credentials}) : super(key: key);
@@ -19,8 +20,8 @@ class _MainScreen extends State<MainScreen> {
   int _selectedIndex = 0;
   final List<Widget> _bottomWidgets = <Widget>[
     const MainScreenDashboard(),
+    ExpenseCharts(false),
     const ViewExpenses(),
-    const MainScreenDashboard(),
     const MainScreenDashboard(),
   ];
 
