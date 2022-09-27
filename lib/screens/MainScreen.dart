@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:untitled/screens/MainScreenDashboard.dart';
 import 'package:untitled/screens/ViewExpenses.dart';
 
+import '../models/LoginCred.dart';
+
 class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key, required this.credentials}) : super(key: key);
+  final Credentials credentials;
+
   @override
   State<StatefulWidget> createState() {
     return _MainScreen();
@@ -29,6 +34,33 @@ class _MainScreen extends State<MainScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                  child: ListView(
+                children: [
+                  Text(widget.credentials.email),
+                  Text(widget.credentials.password),
+                ],
+              )),
+              ListTile(
+                title: const Text('Item 1'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+              ListTile(
+                title: const Text('Item 2'),
+                onTap: () {
+                  // Update the state of the app.
+                  // ...
+                },
+              ),
+            ],
+          ),
+        ),
         backgroundColor: Colors.black,
         bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[

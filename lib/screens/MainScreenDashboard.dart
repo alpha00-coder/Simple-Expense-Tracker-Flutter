@@ -8,6 +8,7 @@ import '../models/ExpenseModel.dart';
 class MainScreenDashboard extends StatefulWidget {
   const MainScreenDashboard({super.key});
 
+
   @override
   State<StatefulWidget> createState() {
     return _MainScreenDashboard();
@@ -32,7 +33,7 @@ class _MainScreenDashboard extends State<MainScreenDashboard> {
 
   @override
   void initState() {
-    _expenseNameController.text = currentDate();
+    _expDatePickerController.text = currentDate();
     super.initState();
   }
 
@@ -44,124 +45,138 @@ class _MainScreenDashboard extends State<MainScreenDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: GridView.count(
-        crossAxisCount: 3,
-        crossAxisSpacing: 3.0,
-        mainAxisSpacing: 4.0,
-        children: List.generate(Utils.list.length, (index) {
-          return Center(
-            child: InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Container(
-                            padding: const EdgeInsets.all(35),
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      children: [
-                                        const Text("Expense Name"),
-                                        TextField(
-                                          onChanged: (value) {
-                                            expName = value;
-                                          },
-                                          controller: _expenseNameController,
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(width: 1)),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        const Text("Amount"),
-                                        TextField(
-                                          onChanged: (value) {
-                                            expAmount = value;
-                                          },
-                                          controller: _amountController,
-                                          decoration: const InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(width: 1)),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        TextField(
-                                            onChanged: (value) {
-                                              expDatePicker = value;
-                                            },
-                                            controller:
-                                                _expDatePickerController,
-                                            decoration: const InputDecoration(
-                                                icon:
-                                                    Icon(Icons.calendar_today),
-                                                //icon of text field
-                                                labelText:
-                                                    "Enter Date" //label text of field
-                                                ),
-                                            readOnly: true,
-                                            onTap: () async {
-                                              DateTime? pickedDate =
-                                                  await showDatePicker(
-                                                      context: context,
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime(1950),
-                                                      //DateTime.now() - not to allow to choose before today.
-                                                      lastDate: DateTime(2100));
-
-                                              if (pickedDate != null) {
-                                                print(
-                                                    pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                                String formattedDate =
-                                                    DateFormat('yyyy-MM-dd')
-                                                        .format(pickedDate);
-                                                print(
-                                                    formattedDate); //formatted date output using intl package =>  2021-03-16
-                                                setState(() {
-                                                  _expDatePickerController
-                                                          .text =
-                                                      formattedDate; //set output date to TextField value.
-                                                });
-                                              } else {}
-                                            }),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              addItems(expName, expAmount,
-                                                  expDatePicker);
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                          child: const Text("Add Bill",
-                                              style: TextStyle(fontSize: 18)),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ]),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          padding: const EdgeInsets.all(10),
+          child: GridView.count(
+            crossAxisCount: 3,
+            crossAxisSpacing: 3.0,
+            mainAxisSpacing: 4.0,
+            children: List.generate(Utils.list.length, (index) {
+              return Center(
+                child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder( // <-- SEE HERE
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(25.0),
+                            ),
                           ),
-                        );
-                      });
-                },
-                child: CardItems(key: null, index: index)),
-          );
-        }),
+                          builder: (context) {
+                            return Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Container(
+                                padding: const EdgeInsets.all(35),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Column(
+                                          children: [
+                                            const Text("Expense Name"),
+                                            TextField(
+                                              onChanged: (value) {
+                                                expName = value;
+                                              },
+                                              controller:
+                                                  _expenseNameController,
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderSide:
+                                                        BorderSide(width: 1)),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            const Text("Amount"),
+                                            TextField(
+                                              onChanged: (value) {
+                                                expAmount = value;
+                                              },
+                                              controller: _amountController,
+                                              decoration: const InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderSide:
+                                                        BorderSide(width: 1)),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            TextField(
+                                                onChanged: (value) {
+                                                  expDatePicker = value;
+                                                },
+                                                controller:
+                                                    _expDatePickerController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        icon: Icon(Icons
+                                                            .calendar_today),
+                                                        //icon of text field
+                                                        labelText:
+                                                            "Enter Date" //label text of field
+                                                        ),
+                                                readOnly: true,
+                                                onTap: () async {
+                                                  DateTime? pickedDate =
+                                                      await showDatePicker(
+                                                          context: context,
+                                                          initialDate:
+                                                              DateTime.now(),
+                                                          firstDate:
+                                                              DateTime(1950),
+                                                          //DateTime.now() - not to allow to choose before today.
+                                                          lastDate:
+                                                              DateTime(2100));
+
+                                                  if (pickedDate != null) {
+                                                    print(
+                                                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                                    String formattedDate =
+                                                        DateFormat('dd-MM-yyyy')
+                                                            .format(pickedDate);
+                                                    print(
+                                                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                                                    setState(() {
+                                                      _expDatePickerController
+                                                              .text =
+                                                          formattedDate; //set output date to TextField value.
+                                                    });
+                                                  } else {}
+                                                }),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  addItems(expName, expAmount,
+                                                      expDatePicker);
+                                                  Navigator.pop(context);
+                                                });
+                                              },
+                                              child: const Text("Add Bill",
+                                                  style:
+                                                      TextStyle(fontSize: 18)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                            );
+                          });
+                    },
+                    child: CardItems(key: null, index: index)),
+              );
+            }),
+          ),
+        ),
       ),
     );
   }

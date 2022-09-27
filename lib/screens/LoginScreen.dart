@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/models/LoginCred.dart';
-import 'package:untitled/screens/Dashboard.dart';
+import 'package:untitled/screens/MainScreenDashboard.dart';
+
+import 'MainScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,7 +14,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   var email;
   var password;
-
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -87,7 +88,7 @@ class _LoginScreen extends State<LoginScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Dashboard(
+                          builder: (context) => MainScreen(
                               key: null,
                               credentials: Credentials(email, password))),
                     );
