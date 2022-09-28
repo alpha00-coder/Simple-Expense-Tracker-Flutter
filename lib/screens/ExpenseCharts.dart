@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:untitled/Utils.dart';
 import 'package:untitled/database/DbExecuter.dart';
 
@@ -35,33 +34,45 @@ class _ExpenseCharts extends State<ExpenseCharts> {
         body: FutureBuilder<List<ExpenseModel>>(
             future: retrieveExpenses(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<ExpenseModel> list = snapshot.data!;
-                return Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Column(children: [
-                    Expanded(
-                      child: charts.BarChart(
-                        returnListExpense(list),
-                        animate: widget.animate,
-                        barRendererDecorator:
-                            charts.BarLabelDecorator<String>(),
-                        domainAxis: const charts.OrdinalAxisSpec(),
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    Expanded(
-                      child: charts.PieChart(returnListExpense(list),
-                          animate: widget.animate,
-                          defaultRenderer: charts.ArcRendererConfig(
-                            arcWidth: 60,
-                            arcRendererDecorators: [charts.ArcLabelDecorator()],
-                          )),
-                    ),
-                  ]),
-                );
+              List<ExpenseModel> list = snapshot.data!;
+              if (list.isNotEmpty) {
+                return const Center(child: CircularProgressIndicator());
               } else {
-                return Container();
+                var length = list.length;
+                if (length == 0) {
+                  return const SafeArea(
+                    child: Center(
+                      child: Text("No Data Found.....!"),
+                    ),
+                  );
+                } else {
+                  ///** else has some data  **///
+                  return Padding(
+                    padding: const EdgeInsets.all(25),
+                    child: Column(children: [
+                      Expanded(
+                        child: charts.BarChart(
+                          returnListExpense(list),
+                          animate: widget.animate,
+                          barRendererDecorator:
+                              charts.BarLabelDecorator<String>(),
+                          domainAxis: const charts.OrdinalAxisSpec(),
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      Expanded(
+                        child: charts.PieChart(returnListExpense(list),
+                            animate: widget.animate,
+                            defaultRenderer: charts.ArcRendererConfig(
+                              arcWidth: 60,
+                              arcRendererDecorators: [
+                                charts.ArcLabelDecorator()
+                              ],
+                            )),
+                      ),
+                    ]),
+                  );
+                }
               }
             }));
   }
