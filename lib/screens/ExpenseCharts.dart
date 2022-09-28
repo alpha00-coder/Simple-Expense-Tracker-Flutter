@@ -18,6 +18,7 @@ class ExpenseCharts extends StatefulWidget {
 
 class _ExpenseCharts extends State<ExpenseCharts> {
   final _dbExecutor = DbExecuter();
+  List<ExpenseModel>? list = [];
 
   @override
   void initState() {
@@ -34,11 +35,11 @@ class _ExpenseCharts extends State<ExpenseCharts> {
         body: FutureBuilder<List<ExpenseModel>>(
             future: retrieveExpenses(),
             builder: (context, snapshot) {
-              List<ExpenseModel> list = snapshot.data!;
-              if (list.isNotEmpty) {
+              list = snapshot.data;
+              if (list == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                var length = list.length;
+                var length = list!.length;
                 if (length == 0) {
                   return const SafeArea(
                     child: Center(
@@ -52,7 +53,7 @@ class _ExpenseCharts extends State<ExpenseCharts> {
                     child: Column(children: [
                       Expanded(
                         child: charts.BarChart(
-                          returnListExpense(list),
+                          returnListExpense(list!),
                           animate: widget.animate,
                           barRendererDecorator:
                               charts.BarLabelDecorator<String>(),
@@ -61,7 +62,7 @@ class _ExpenseCharts extends State<ExpenseCharts> {
                       ),
                       const SizedBox(height: 25),
                       Expanded(
-                        child: charts.PieChart(returnListExpense(list),
+                        child: charts.PieChart(returnListExpense(list!),
                             animate: widget.animate,
                             defaultRenderer: charts.ArcRendererConfig(
                               arcWidth: 60,
