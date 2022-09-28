@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:untitled/database/DbExecuter.dart';
 import 'package:untitled/models/ExpenseModel.dart';
 
@@ -60,7 +59,7 @@ class _ViewProducts extends State<ViewExpenses> {
                     itemCount: listItems?.length,
                     itemBuilder: (BuildContext context, index) => ListTile(
                           title: Text(listItems![index].expenseName),
-                          subtitle:  Text(listItems![index].expenseDateCreated),
+                          subtitle: Text(listItems![index].expenseDateCreated),
                           leading: CircleAvatar(
                             backgroundColor: Colors.black,
                             child: Text(listItems![index].expenseAmount,

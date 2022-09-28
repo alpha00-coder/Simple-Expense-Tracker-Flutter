@@ -8,7 +8,7 @@ import '../models/ExpenseModel.dart';
 class ExpenseCharts extends StatefulWidget {
   ExpenseCharts(this.animate);
 
-  bool animate = false;
+  final bool animate;
 
   @override
   State<StatefulWidget> createState() {
@@ -48,28 +48,57 @@ class _ExpenseCharts extends State<ExpenseCharts> {
                   );
                 } else {
                   ///** else has some data  **///
-                  return Padding(
+                  return Container(
                     padding: const EdgeInsets.all(25),
                     child: Column(children: [
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text("BY DATE")),
+                      const SizedBox(height: 8),
                       Expanded(
-                        child: charts.BarChart(
-                          returnListExpense(list!),
-                          animate: widget.animate,
-                          barRendererDecorator:
-                              charts.BarLabelDecorator<String>(),
-                          domainAxis: const charts.OrdinalAxisSpec(),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                bottomRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0),
+                                bottomLeft: Radius.circular(10.0)),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: charts.BarChart(
+                            returnListExpense(list!),
+                            animate:true,
+                            barRendererDecorator:
+                                charts.BarLabelDecorator<String>(),
+                            domainAxis: const charts.OrdinalAxisSpec(),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 25),
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          child: const Text("BY CATEGORY")),
+                      const SizedBox(height: 8),
                       Expanded(
-                        child: charts.PieChart(returnListExpense(list!),
-                            animate: widget.animate,
-                            defaultRenderer: charts.ArcRendererConfig(
-                              arcWidth: 60,
-                              arcRendererDecorators: [
-                                charts.ArcLabelDecorator()
-                              ],
-                            )),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10.0),
+                                bottomRight: Radius.circular(10.0),
+                                topLeft: Radius.circular(10.0),
+                                bottomLeft: Radius.circular(10.0)),
+                          ),
+                          child: charts.PieChart(returnListExpense(list!),
+                              animate: true,
+                              defaultRenderer: charts.ArcRendererConfig(
+                                arcWidth: 60,
+                                arcRendererDecorators: [
+                                  charts.ArcLabelDecorator()
+                                ],
+                              )),
+                        ),
                       ),
                     ]),
                   );

@@ -8,7 +8,6 @@ import '../models/ExpenseModel.dart';
 class MainScreenDashboard extends StatefulWidget {
   const MainScreenDashboard({super.key});
 
-
   @override
   State<StatefulWidget> createState() {
     return _MainScreenDashboard();
@@ -59,7 +58,8 @@ class _MainScreenDashboard extends State<MainScreenDashboard> {
                     onTap: () {
                       showModalBottomSheet(
                           context: context,
-                          shape: const RoundedRectangleBorder( // <-- SEE HERE
+                          shape: const RoundedRectangleBorder(
+                            // <-- SEE HERE
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(25.0),
                             ),
@@ -155,8 +155,11 @@ class _MainScreenDashboard extends State<MainScreenDashboard> {
                                             ElevatedButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  addItems(expName, expAmount,
-                                                      _expDatePickerController.text);
+                                                  addItems(
+                                                      expName,
+                                                      expAmount,
+                                                      _expDatePickerController
+                                                          .text);
                                                   Navigator.pop(context);
                                                 });
                                               },

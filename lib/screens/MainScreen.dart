@@ -20,9 +20,8 @@ class _MainScreen extends State<MainScreen> {
   int _selectedIndex = 0;
   final List<Widget> _bottomWidgets = <Widget>[
     const MainScreenDashboard(),
-    ExpenseCharts(false),
     const ViewExpenses(),
-    const MainScreenDashboard(),
+    ExpenseCharts(true)
   ];
 
   void _onItemTapped(int index) {
@@ -33,8 +32,7 @@ class _MainScreen extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         drawer: Drawer(
           child: ListView(
             children: [
@@ -68,36 +66,32 @@ class _MainScreen extends State<MainScreen> {
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.apps,
-                    color: Colors.white,
                   ),
-                  label: "",
-                  backgroundColor: Colors.black),
+                  label: "",),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.widgets, color: Colors.white),
+                  icon: Icon(Icons.widgets),
                   label: "",
-                  backgroundColor: Colors.black),
+                 ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_balance_wallet_sharp,
-                      color: Colors.white),
+                      ),
                   label: "",
-                  backgroundColor: Colors.black),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.whatshot, color: Colors.white),
-                  label: "",
-                  backgroundColor: Colors.black),
+                 ),
             ],
-            type: BottomNavigationBarType.shifting,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.black,
-            iconSize: 40,
+            unselectedItemColor: Colors.black,
+            selectedItemColor: Colors.blue,
             onTap: _onItemTapped,
-            elevation: 5),
+            elevation: 0),
         appBar: AppBar(
           title: const Text("Expense Manager"),
           centerTitle: true,
         ),
         body: Center(child: _bottomWidgets.elementAt(_selectedIndex)),
-      ),
+
     );
   }
 }
